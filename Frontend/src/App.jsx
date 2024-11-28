@@ -24,6 +24,7 @@ import { Elements } from "@stripe/react-stripe-js"
 import { loadStripe } from "@stripe/stripe-js"
 import { url } from './utils/constant'
 import MyBookings from './Pages/MyBookings'
+import Tenant from './Pages/Tenants'
 
 
 
@@ -71,6 +72,7 @@ function App() {
           <Route path="/admin/add" element={admin?<Add/>:<Home/>}/>
           <Route path="/admin/dashboard" element={user && user.userType==="pgOwner"?<Dashboard/>:<Home/>}/>
           <Route path="/admin/pg/:id" element={admin?<PgDashboard/>:<Home/>}/>
+          <Route path="/admin/pg/:id/tenants" element={admin?<Tenant/>:<Home/>}/>
         </Routes>
     </div>
   )

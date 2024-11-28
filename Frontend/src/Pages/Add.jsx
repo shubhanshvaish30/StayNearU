@@ -5,12 +5,14 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { assets } from "../assets/assets";
 
 const Add = () => {
   const [currentStep, setCurrentStep] = useState(0);
   const {user,token}=useSelector(state=>state.auth)
   const userId=user._id;
   const navigate=useNavigate();
+  const [photo,setPhoto]=useState(false)
   const [pgDetails, setPgDetails] = useState({
     name: "",
     university:"",
@@ -103,8 +105,10 @@ const Add = () => {
         const rooms=roomDetails.rooms;
         console.log(userId);
         
-        const data={...pgDetails,rooms,userId};
+        const data={...pgDetails,rooms,userId,photo};
         const res=await axios.post(url+"/admin/addPg",data);
+        console.log(res);
+        
         if(res.data.success){
           toast.success(res.data.msg);
           navigate('/');
@@ -323,6 +327,22 @@ const Add = () => {
               />
               {errors.email && <span className="text-red-500 text-sm">{errors.email}</span>}
             </div>
+            <div>
+                <p>Upload Photo</p>
+                <label htmlFor="img" className="block font-semibold text-gray-700">
+                <img className="w-20 cursor-pointer" src={photo?URL.createObjectURL(photo):assets.upload_photo} />
+                </label>
+                <input
+                  type="file"
+                  name="photo"
+                  id="img" 
+                  accept="image/*"
+                  onChange={(e)=>setPhoto(e.target.files[0])}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600"
+                  hidden
+                  required
+                />
+              </div>
           </>
         )}
 

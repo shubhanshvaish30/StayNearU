@@ -5,16 +5,16 @@ import ApiFeatures from "../utils/apiFeatures.js";
 
 const addPG=async (req,res)=>{
     try{
-        const {name,university,distance,street,city,state,pincode,facilities,phone,email,rooms}=req.body;
+        const {name,university,distance,street,city,state,pincode,facilities,phone,email,rooms,photo}=req.body;
         const userId=req.body.userId;
         console.log(userId);
-        
+        log
         const address={street,city,state,pincode};
         const contact={phone,email};
         const room=new Room({rooms});
         await room.save();
         console.log(room);
-        const pg=new PG({name,address,university,distance,rooms:[room._id],facilities,contact,owner:userId});
+        const pg=new PG({name,address,university,distance,rooms:[room._id],facilities,photo,contact,owner:userId});
         await pg.save();
         return res.json({success:true,msg:"PG Added Successfully"});
     }

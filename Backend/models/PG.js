@@ -28,10 +28,10 @@ const pgSchema = new mongoose.Schema({
         type: [String],
         required: [true, "Please add facilities"]
     },
-    // img: {
-    //     type: String,
-    //     trim: true
-    // },
+    photo: {
+        type: String,
+        trim: true
+    },
     contact: {
         phone: { type: Number, required: [true, "Please provide a contact number"] },
         email: { type: String, required: [true, "Please provide a contact email"] }

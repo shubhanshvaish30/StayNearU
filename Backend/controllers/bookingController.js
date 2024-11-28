@@ -1,5 +1,4 @@
 import Booking from '../models/Booking.js'
-// import PG from '../models/PG.js';
 import Profile from '../models/Profile.js';
 import Room from '../models/Room.js';
 const createBooking=async (req,res)=>{
@@ -131,4 +130,17 @@ const getRecentBooking=async(req,res)=>{
     }
 }
 
-export {createBooking,getBookings,getRecentBooking};
+const getAdminBookings=async(req,res)=>{
+    try{
+        const pgId=req.params.id;
+        const booking=await Booking.find({pg:pgId}).populate("profile").populate("rooms");
+        if(!booking){
+            return res.json({success:false,message:"Something went wrong"});
+        }
+        return res.json({success:true,booking});
+    }catch(e){
+        console.log(e);
+    }
+}
+
+export {createBooking,getBookings,getRecentBooking,getAdminBookings};

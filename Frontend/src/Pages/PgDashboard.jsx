@@ -2,19 +2,23 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { FaHome,FaMoneyBillWave } from "react-icons/fa";
 import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { url } from "../utils/constant";
 function PgDashboard(){
     const { pgs, user } = useSelector((store) => store.pg)
     const {id}=useParams();
     const [pg,setPG]=useState(null);
+    const [monthlyEarnings, setMonthlyEarnings] = useState(0);
     const fetchPG=async ()=>{
         const res=await axios.get(`${url}/admin/getAdminPG/${id}`);
-        console.log("yaha");
         
         if(res.data.success){
             console.log(res.data);
             setPG(res.data.pg);
+            const earnings = res.data.pg.rooms.rooms.reduce((total, item) => {
+                return total + item.price * (item.count - item.available);
+            }, 0);
+            setMonthlyEarnings(earnings);
         }else{
         console.log("Error");
         }
@@ -37,7 +41,7 @@ function PgDashboard(){
                 <div className="bg-white p-6 rounded-lg shadow-lg text-center">
                     <FaMoneyBillWave className="text-6xl text-green-600 mx-auto mb-4" />
                     <h2 className="text-2xl font-semibold">Monthly Earnings</h2>
-                    <p className="text-gray-600 mt-2">₹500,000</p>
+                    <p className="text-gray-600 mt-2">₹{monthlyEarnings.toLocaleString()}</p>
                 </div>
             </section>
             <section className="mt-16">
@@ -51,7 +55,7 @@ function PgDashboard(){
                                     Total Rooms: {item.count}
                                 </p>
                                 <p className="text-gray-600">
-                                    Filled Rooms: {item.available}
+                                    Filled Rooms: {item.count - item.available}
                                 </p>
                             </div>
                         </div>
@@ -64,12 +68,12 @@ function PgDashboard(){
 
                     <div className="bg-white p-6 rounded-lg shadow-lg">
                     <h3 className="text-xl font-semibold mb-4">View Tenant Details</h3>
-                    <p className="text-gray-600">
+                    <p className="text-gray-600 mb-6">
                         Check tenant information, lease details, and contact options.
                     </p>
-                    <button className="mt-4 px-4 py-2 bg-teal-500 text-white rounded-full hover:bg-teal-700 transition">
+                    <Link to={`/admin/pg/${id}/tenants`} className="mt-4 px-4 py-2 bg-teal-500 text-white rounded-full hover:bg-teal-700 transition">
                         View Tenants
-                    </button>
+                    </Link>
                     </div>
                     <div className="bg-white p-6 rounded-lg shadow-lg">
                     <h3 className="text-xl font-semibold mb-4">Respond to Inquiries</h3>
