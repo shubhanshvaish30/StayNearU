@@ -25,6 +25,7 @@ import { loadStripe } from "@stripe/stripe-js"
 import { url } from './utils/constant'
 import MyBookings from './Pages/MyBookings'
 import Tenant from './Pages/Tenants'
+import NotLoggedIn from './Components/NotLoggedIn'
 
 
 
@@ -62,17 +63,17 @@ function App() {
           <Route path="/signup" element={!token?<Login setShowLogin={setShowLogin} />:<Home/>} />
           <Route path="/signup/verify" element={!token?<Login initialView="otpVerification" />:<Home/>} />
           <Route path="/search" element={<SearchResult/>}/>
-          <Route path="/explore" element={<Explore/>}/>
+          <Route path="/explore" element={token && !admin?<Explore/>:<NotLoggedIn/>}/>
           <Route path="/user/pg/:id" element={<ViewPG/>}/>
-          <Route path="/user/pg/:id/booking" element={<BookingPage/>}/>
-          <Route path="/user/payment/:id" element={ stripeApiKey?<Elements stripe={loadStripe(stripeApiKey)}><Payment /></Elements>:<Login/>}/>
-          <Route path="/user/profile" element={<Profile/>}/>
-          <Route path="/user/bookings" element={<MyBookings/>}/>
-          <Route path="/myPG" element={<MyPG/>}/>
-          <Route path="/admin/add" element={admin?<Add/>:<Home/>}/>
-          <Route path="/admin/dashboard" element={user && user.userType==="pgOwner"?<Dashboard/>:<Home/>}/>
-          <Route path="/admin/pg/:id" element={admin?<PgDashboard/>:<Home/>}/>
-          <Route path="/admin/pg/:id/tenants" element={admin?<Tenant/>:<Home/>}/>
+          <Route path="/user/pg/:id/booking" element={token && !admin?<BookingPage/>:<NotLoggedIn/>}/>
+          <Route path="/user/payment/:id" element={ token && !admin && stripeApiKey?<Elements stripe={loadStripe(stripeApiKey)}><Payment /></Elements>:<NotLoggedIn/>}/>
+          <Route path="/user/profile" element={token && !admin?<Profile/>:<NotLoggedIn/>}/>
+          <Route path="/user/bookings" element={token && !admin?<MyBookings/>:<NotLoggedIn/>}/>
+          <Route path="/myPG" element={token && !admin?<MyPG/>:<NotLoggedIn/>}/>
+          <Route path="/admin/add" element={admin?<Add/>:<AdminHome/>}/>
+          <Route path="/admin/dashboard" element={user && user.userType==="pgOwner"?<Dashboard/>:<AdminHome/>}/>
+          <Route path="/admin/pg/:id" element={admin?<PgDashboard/>:<AdminHome/>}/>
+          <Route path="/admin/pg/:id/tenants" element={admin?<Tenant/>:<AdminHome/>}/>
         </Routes>
     </div>
   )

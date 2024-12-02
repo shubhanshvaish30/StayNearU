@@ -94,18 +94,20 @@ function ViewPG() {
             setRatingValue(0);
         }
     };
+    // console.log(pgData.photo);
+    
     const topReviews = [...reviews].sort((a, b) => b.rating - a.rating).slice(0, 3);
     return (
         <div className="mt-16 container mx-auto p-6">
             {loading ? (
                 <p>Loading...</p>
             ) : pgData ? (
-                <div className="flex flex-wrap">
+                <div className="flex md:flex-row flex-col-reverse">
                     {/* Left side: Images */}
                     <div className="w-full md:w-1/2 pr-4 sticky top-0">
                         <div className="flex flex-col space-y-4">
                             <img
-                                src={mainImage}
+                                src={`${url}/pg/${pgData.photo}`}
                                 alt="Main PG view"
                                 className="rounded-lg w-full h-80 object-cover shadow-lg mb-4 transition-transform duration-300 hover:scale-105"
                             />
@@ -122,7 +124,7 @@ function ViewPG() {
                             </div>
                         </div>
                         {/* Map Section */}
-                        <div className="w-full pr-4 flex flex-col relative">
+                        <div className="w-full pr-4 flex flex-col">
                             <h2 className="text-2xl font-semibold mb-4 flex items-center">
                             <FiMapPin className="mr-2 text-blue-500"/>Location
                             </h2>

@@ -29,8 +29,9 @@ app.use('/admin',pgAdminRouter);
 app.use('/user',pgUserRouter);
 // app.use("",reviewRouter)
 app.use('/profile',profileRouter);
-app.use("/images",express.static('uploads/profile'))
+app.use("/profile",express.static('uploads/profile'))
 app.use("/aadhar",express.static('uploads/profile'))
+app.use("/pg",express.static('uploads/pg'))
 app.use("/make",paymentRouter)
 app.use("/booking",bookingRouter);
 

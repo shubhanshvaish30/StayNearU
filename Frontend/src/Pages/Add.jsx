@@ -12,7 +12,7 @@ const Add = () => {
   const {user,token}=useSelector(state=>state.auth)
   const userId=user._id;
   const navigate=useNavigate();
-  const [photo,setPhoto]=useState(false)
+  const [photo,setPhoto]=useState("")
   const [pgDetails, setPgDetails] = useState({
     name: "",
     university:"",
@@ -21,9 +21,12 @@ const Add = () => {
     city: "",
     state: "",
     pincode: "",
+    latitude:"",
+    longitude:"",
     facilities:[],
     phone: "",
     email: "",
+    photo:""
   });
   const [roomDetails,setRoomDetails]=useState({
     rooms:[
@@ -49,6 +52,8 @@ const Add = () => {
       if (!pgDetails.city) newErrors.city = "City is required";
       if (!pgDetails.state) newErrors.state = "State is required";
       if (!pgDetails.pincode) newErrors.pincode = "Pincode is required";
+      if (!pgDetails.latitude) newErrors.latitude = "Latitude is required";
+      if (!pgDetails.longitude) newErrors.longitude = "Longitude is required";
       if (!pgDetails.facilities) newErrors.facilities = "Pincode is required";
     } else if (currentStep === 1) {
       roomDetails.rooms.forEach((room, index) => {
@@ -100,13 +105,33 @@ const Add = () => {
 
   const handleSubmit =async (e) => {
     e.preventDefault();
+    console.log(photo);
+    
     try{
       if (validateForm()) {
         const rooms=roomDetails.rooms;
-        console.log(userId);
+        console.log(photo);
+        const formData=new FormData();
+        // formData.append('photo',photo);
+        formData.append('name',pgDetails.name);
+        formData.append('university',pgDetails.university);
+        formData.append('distance',pgDetails.distance);
+        formData.append('street',pgDetails.street);
+        formData.append('city',pgDetails.city);
+        formData.append('state',pgDetails.state);
+        formData.append('pincode',pgDetails.pincode);
+        formData.append('latitude',pgDetails.latitude);
+        formData.append('longitude',pgDetails.longitude);
+        formData.append('facilities',pgDetails.facilities);
+        formData.append('phone',pgDetails.phone);
+        formData.append('email',pgDetails.email);
+        formData.append('photo',photo);
+        // const data={...pgDetails,rooms,userId,photo};
+        // console.log(data);
         
-        const data={...pgDetails,rooms,userId,photo};
-        const res=await axios.post(url+"/admin/addPg",data);
+        const res=await axios.post(`${url}/admin/addPg`,formData, {
+          headers: { "Content-Type": "multipart/form-data" },
+        });
         console.log(res);
         
         if(res.data.success){
@@ -229,6 +254,32 @@ const Add = () => {
               {errors.pincode && <span className="text-red-500 text-sm">{errors.pincode}</span>}
             </div>
             <div className="mb-4">
+              <label className="block text-blue-600 mb-2">Latitude</label>
+              <input
+                type="number"
+                name="latitude"
+                value={pgDetails.latitude}
+                onChange={handleInputChange}
+                placeholder="Enter Latitude"
+                className={`w-full px-4 py-2 border ${errors.latitude ? 'border-red-500' : 'border-gray-300'} rounded-md bg-transparent text-blue-600 placeholder:text-gray-400 focus:outline-none focus:border-blue-500`}
+                required
+              />
+              {errors.latitude && <span className="text-red-500 text-sm">{errors.latitude}</span>}
+            </div>
+            <div className="mb-4">
+            <div className="mb-4">
+              <label className="block text-blue-600 mb-2">Longitude</label>
+              <input
+                type="number"
+                name="longitude"
+                value={pgDetails.longitude}
+                onChange={handleInputChange}
+                placeholder="Enter Longitude"
+                className={`w-full px-4 py-2 border ${errors.longitude ? 'border-red-500' : 'border-gray-300'} rounded-md bg-transparent text-blue-600 placeholder:text-gray-400 focus:outline-none focus:border-blue-500`}
+                required
+              />
+              {errors.longitude && <span className="text-red-500 text-sm">{errors.longitude}</span>}
+            </div>
               <label className="block text-blue-600 mb-2">Facilities</label>
               <input
                 type="string"
@@ -338,10 +389,11 @@ const Add = () => {
                   id="img" 
                   accept="image/*"
                   onChange={(e)=>setPhoto(e.target.files[0])}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md"
                   hidden
                   required
                 />
+                {errors.photo && <span className="text-red-500 text-sm">{errors.photo}</span>}
               </div>
           </>
         )}

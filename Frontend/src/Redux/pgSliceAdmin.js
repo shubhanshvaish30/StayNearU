@@ -11,9 +11,12 @@ export const pgSliceAdmin=createSlice({
     reducers:{
         setList:(state,action)=>{
             state.pgs=action.payload;
+        },
+        setPgs:(state)=>{
+            state.pgs=[];
         }
     }
 })
 
-export const {setList}=pgSliceAdmin.actions;
+export const {setList,setPgs}=pgSliceAdmin.actions;
 export default pgSliceAdmin.reducer;

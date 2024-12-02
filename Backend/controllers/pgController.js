@@ -5,15 +5,15 @@ import ApiFeatures from "../utils/apiFeatures.js";
 
 const addPG=async (req,res)=>{
     try{
-        const {name,university,distance,street,city,state,pincode,facilities,phone,email,rooms,photo}=req.body;
+        const photo = req.files?.photo?.[0]?.filename;
+        const {name,university,distance,street,city,state,pincode,latitude,longitude,facilities,phone,email,rooms}=req.body;
         const userId=req.body.userId;
-        console.log(userId);
-        log
-        const address={street,city,state,pincode};
+        // console.log(photo);
+        const address={street,city,state,pincode,latitude,longitude};
         const contact={phone,email};
         const room=new Room({rooms});
         await room.save();
-        console.log(room);
+        // console.log(room);
         const pg=new PG({name,address,university,distance,rooms:[room._id],facilities,photo,contact,owner:userId});
         await pg.save();
         return res.json({success:true,msg:"PG Added Successfully"});

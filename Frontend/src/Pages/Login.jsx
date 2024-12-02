@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { setUser } from "../Redux/authSlice";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { setProfileData } from "../Redux/profileSlice";
 
 function Login() {
   const [view, setView] = useState("login");
@@ -72,6 +73,32 @@ function Login() {
     return !Object.values(newErrors).some((error) => error);
   };
 
+  const fetchData=async(userId)=>{
+    try{
+      const res=await axios.get(`${url}/profile/get`,{
+        params:{userId}
+      });
+      console.log(res.data.profile);
+      if(res.data.success){
+        dispatch(setProfileData({
+          name: res.data.profile.name,
+          email:res.data.profile.email,
+          phone:res.data.profile.phone,
+          age: res.data.profile.age,
+          gender: res.data.profile.gender,
+          parent: res.data.profile.parent,
+          address: res.data.profile.address,
+          photo:res.data.profile.photo,
+          aadharCard:res.data.profile.aadharCard,
+          user:res.data.profile.user
+        }))
+      }
+      
+    }catch(e){
+      console.log(e);
+    }
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -86,6 +113,7 @@ function Login() {
             const { user, token } = res.data;
             localStorage.setItem("token", token);
             dispatch(setUser({ user, token }));
+            fetchData(user._id);
             toast.success(res.data.msg);
             console.log(res.data.msg);
             

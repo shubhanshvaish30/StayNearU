@@ -16,15 +16,6 @@ function Profile() {
   const {user,token}=useSelector(store=>store.auth);
   const userId=user._id;
   const navigate=useNavigate();
-  const [profileDetails, setDetails] = useState({
-    name: "",
-    email:"",
-    phone:"",
-    age: "",
-    gender: "",
-    parent: "",
-    address: "",
-  });
   const handleInputChange=(e)=>{
     setProfile({...profile,[e.target.name]:e.target.value});
     console.log(e.target.value);
@@ -54,6 +45,8 @@ function Profile() {
 
   const handleSaveProfile = async (e) => {
     e.preventDefault();
+    console.log(photo);
+    
     try {
       const formData = new FormData();
       formData.append("photo", photo); // Append the photo file
@@ -66,7 +59,7 @@ function Profile() {
       formData.append("parent", profile.parent);
       formData.append("address", profile.address);
       formData.append("user", userId);
-  
+      
       const res = await axios.post(`${url}/profile/create`, formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
@@ -140,7 +133,7 @@ function Profile() {
                   {/* Profile Image */}
                   <div className="flex-shrink-0">
                     <img
-                      src={`${url}/images/${profile.photo}`}
+                      src={`${url}/profile/${profile.photo}`}
                       alt="Profile"
                       className="w-36 h-36 rounded-full border-4 border-blue-400 object-cover shadow-md"
                     />
@@ -361,7 +354,6 @@ function Profile() {
                 <button
                   type="submit"
                   className="px-4 py-2 bg-blue-400 text-white rounded-md hover:bg-blue-500"
-                  // onClick={updateProfile}
                 >
                   Save
                 </button>

@@ -17,9 +17,7 @@ profileRouter.post(
     upload.fields([
         { name: "photo", maxCount: 1 }, 
         { name: "aadhar", maxCount: 1 }
-    ]),
-    createOrUpdateProfile
-);
+    ]),createOrUpdateProfile);
 
 
 export default profileRouter;

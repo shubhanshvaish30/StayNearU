@@ -17,7 +17,6 @@ function Payment() {
     const { user, token } = useSelector(store => store.auth);
     const {bookingData}=useSelector(store=>store.booking);
     const paymentData = { amount: Math.round(bookingData.amount) };
-    // console.log(paymentData);
     const userId=user._id;
     
     const bookData={
@@ -71,28 +70,7 @@ function Payment() {
 
             if (result.paymentIntent.status === "succeeded") {
                 console.log("payment done");
-                
-                // const orderData = {
-                //     shippingAddress: shippingInfo.addressId,
-                //     orderItems: orderItems.orderItems.map(item => ({
-                //         product: item.product._id,
-                //         quantity: item.quantity
-                //     })),
-                //     paymentInfo: {
-                //         id: result.paymentIntent.id,
-                //         status: result.paymentIntent.status,
-                //     },
-                //     // amount: amount.amount,
-                // };
-                // const orderResponse = await axios.post(`${url}/booking/create`, orderData, {
-                    //     headers: {
-                        //         Authorization: `Bearer ${token}`,
-                        //     },
-                        // });
-                        console.log(result.paymentIntent.id);
-                        
-                // dispatch(finalizeBooking({ transactionId: result.paymentIntent.id,status:"Confirm",userId:userId }));
-                
+                        console.log(result.paymentIntent.id);                
                 const bookingResponse = await axios.post(`${url}/booking/create`, {...bookData,paymentStatus:"Confirm",transactionId:result.paymentIntent.id}, config);
                 if (bookingResponse.data.success) {
                     dispatch(resetBooking());

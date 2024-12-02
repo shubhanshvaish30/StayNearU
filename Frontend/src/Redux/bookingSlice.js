@@ -28,7 +28,7 @@ const bookingSlice = createSlice({
             state.bookingData.userId=action.payload.userId;
         },
         resetBooking: (state) => {
-            state = initialState;
+            state.bookingData = initialState.bookingData;
         },
     },
 });

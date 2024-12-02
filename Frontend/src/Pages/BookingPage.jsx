@@ -8,23 +8,19 @@ import { useDispatch, useSelector } from 'react-redux'
 const BookingPage = () => {
     const {user}=useSelector(store=>store.auth)
     const [pgData, setPgData] = useState(null);
-    const [months, setMonths] = useState(1); // Default contract period is 1 month
-    const [transactionId, setTransactionId] = useState(''); // Generate or fetch transactionId
-    const [selectedRoom, setSelectedRoom] = useState(""); // Room selection state
-    const [roomPrice, setRoomPrice] = useState(0); // Room price for calculation
-    const [totalAmount, setTotalAmount] = useState(0); // Total amount to be paid
-    const [error, setError] = useState(''); // Error message state for validations
+    const [months, setMonths] = useState(1); 
+    const [transactionId, setTransactionId] = useState('');
+    const [selectedRoom, setSelectedRoom] = useState("");
+    const [roomPrice, setRoomPrice] = useState(0);
+    const [totalAmount, setTotalAmount] = useState(0);
+    const [error, setError] = useState('');
     const navigate = useNavigate();
     const dispatch=useDispatch();
     const { id } = useParams();
     let roomTypeId="";
-    // const [booking,setBooking]=useState({
-
-    // })
     const userId=user._id;
     const [profile,setProfile]=useState(null);
     useEffect(() => {
-        // Fetch PG details by ID
         const fetchProfile=async()=>{
             try{
                 const response = await axios.get(`${url}/profile/get`,{
@@ -53,7 +49,6 @@ const BookingPage = () => {
     console.log(selectedRoom);
     
     useEffect(() => {
-        // Calculate the total amount whenever roomPrice or months changes
         setTotalAmount(roomPrice * months);
     }, [roomPrice, months]);
 
@@ -61,13 +56,12 @@ const BookingPage = () => {
         const selectedRoomData = pgData.rooms.rooms.find((room) => room._id === roomId);
         if (selectedRoomData) {
             roomTypeId=selectedRoom._id;
-            setRoomPrice(selectedRoomData.price); // Set the room price
-            setSelectedRoom(roomId); // Set the selected room ID
+            setRoomPrice(selectedRoomData.price);
+            setSelectedRoom(roomId);
         }
     };
 
     const handleBooking = async () => {
-        // Validation to ensure room and contract period are selected
         if (!selectedRoom) {
             setError('Please select a room type.');
             return;
@@ -76,7 +70,6 @@ const BookingPage = () => {
             setError('Please select a contract period.');
             return;
         }
-
         try {
             dispatch(setBookingData({
                 room:pgData.rooms._id,
@@ -95,14 +88,12 @@ const BookingPage = () => {
     };
 
     return (
-        <div className="relative min-h-screen bg-gray-100 pt-20"> {/* Adjusted padding for fixed navbar */}
-            {/* StayNearU Logo */}
+        <div className="relative min-h-screen bg-gray-100 pt-20"> 
             <div className="absolute top-4 right-4 opacity-10">
                 <p>StayNearU</p>
             </div>
 
             <div className="w-full max-w-4xl mx-auto bg-white shadow-lg rounded-lg p-6 mb-8">
-                {/* Page Content */}
                 <h1 className="text-4xl font-semibold text-gray-800 mb-4">{pgData ? pgData.name : 'Loading...'}</h1>
 
                 {pgData ? (
@@ -122,7 +113,6 @@ const BookingPage = () => {
                             </ul>
                         </div>
 
-                        {/* Room Type Dropdown */}
                         <div className="mb-6">
                             <label htmlFor="roomType" className="block text-lg font-semibold text-gray-800 mb-2">
                                 Select Room Type:
@@ -146,7 +136,6 @@ const BookingPage = () => {
                             </select>
                         </div>
 
-                        {/* Duration Dropdown */}
                         <div className="mb-6">
                             <label htmlFor="months" className="block text-lg font-semibold text-gray-800 mb-2">
                                 Select contract period:
@@ -166,10 +155,8 @@ const BookingPage = () => {
                             </select>
                         </div>
 
-                        {/* Error Message */}
                         {error && <p className="text-red-500 text-lg">{error}</p>}
 
-                        {/* Calculation Section */}
                         <div className="space-y-4 border-t-2 pt-4">
                             <div className="flex justify-between text-lg">
                                 <span>Room Selected: {selectedRoom ? pgData.rooms.rooms.find((room) => room._id === selectedRoom)?.type : 'None'}</span>

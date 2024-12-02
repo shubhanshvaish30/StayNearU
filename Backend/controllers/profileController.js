@@ -22,23 +22,16 @@ const getProfile=async(req,res)=>{
 
 const createOrUpdateProfile = async (req, res) => {
     try {
-      // Extract files and form data from the request
       const photo = req.files?.photo?.[0]?.filename;
       const aadharCard = req.files?.aadhar?.[0]?.filename;
       const { name, email, phone, age, gender, parent, address, user } = req.body;
-      console.log(name, email, phone, age, gender, parent, address, user);
-      
-  
-      // Validate required fields
+
       if (!user || !email || !phone || !aadharCard) {
         return res.json({ success: false, message: "Please provide all the required fields" });
       }
-  
-      // Check if the profile already exists for the given user
       const existingProfile = await Profile.findOne({ user });
   
       if (existingProfile) {
-        // Update the existing profile
         existingProfile.name = name || existingProfile.name;
         existingProfile.email = email || existingProfile.email;
         existingProfile.phone = phone || existingProfile.phone;
@@ -47,16 +40,13 @@ const createOrUpdateProfile = async (req, res) => {
         existingProfile.parent = parent || existingProfile.parent;
         existingProfile.address = address || existingProfile.address;
   
-        // Update photo and aadharCard if new files are uploaded
         if (photo) existingProfile.photo = photo;
         if (aadharCard) existingProfile.aadharCard = aadharCard;
   
-        // Save the updated profile
         await existingProfile.save();
   
         return res.json({ success: true, message: "Profile updated successfully" });
       } else {
-        // Create a new profile if none exists
         const profile = new Profile({
           name,
           email,
@@ -70,7 +60,6 @@ const createOrUpdateProfile = async (req, res) => {
           user,
         });
   
-        // Save the new profile
         await profile.save();
   
         return res.json({ success: true, message: "Profile created successfully" });

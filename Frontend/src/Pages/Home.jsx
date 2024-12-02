@@ -1,25 +1,29 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { FiSearch } from "react-icons/fi";
 import { FaUser, FaBed, FaMapMarkedAlt } from "react-icons/fa";
 import './style.css';
+import { useDispatch, useSelector } from "react-redux";
+import { setProfileData } from "../Redux/profileSlice";
+import axios from "axios";
+import { url } from "../utils/constant";
 
 function Home() {
   return (
     <div className="min-h-screen bg-gradient-to-r from-blue-200 to-teal-50 pt-20">
       <section className="relative flex flex-col items-center justify-center min-h-screen py-20 text-center">
         <div className="absolute inset-0 z-0 opacity-50">
-          <FaUser className="absolute w-32 h-32 text-blue-400 animate-float" style={{ top: '10%', left: '10%' }} />
-          <FaBed className="absolute w-32 h-32 text-blue-600 animate-float" style={{ top: '20%', right: '20%' }} />
-          <FaMapMarkedAlt className="absolute w-32 h-32 text-blue-600 animate-float" style={{ bottom: '20%', left: '20%' }} />
-          <FaUser className="absolute w-32 h-32 text-blue-400 animate-float" style={{ bottom: '10%', right: '10%' }} />
+          <FaUser className="absolute md:w-32 md:h-32 w-20 h-16 text-blue-400 animate-float" style={{ top: '10%', left: '10%' }} />
+          <FaBed className="absolute md:w-32 md:h-32 w-20 h-16 text-blue-400 animate-float" style={{ top: '20%', right: '20%' }} />
+          <FaMapMarkedAlt className="absolute md:w-32 md:h-32 w-20 h-16 text-blue-400 animate-float" style={{ bottom: '20%', left: '20%' }} />
+          <FaUser className="absolute md:w-32 md:h-32 w-20 h-16 text-blue-400 animate-float" style={{ bottom: '10%', right: '10%' }} />
 
         </div>
 
         <div className="relative z-10 space-y-4 max-w-md">
-          <h1 className="text-5xl font-extrabold leading-snug">
+          <h1 className="md:text-5xl text-3xl font-extrabold leading-snug">
             Find Your Ideal <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-teal-500">Stay Near You</span>
-            <br /> with <span className="tracking-wide font-normal text-blue-500 text-6xl">StayNearU</span>
+            <br /> with <span className="tracking-wide font-normal text-blue-500 md:text-6xl text-4xl">StayNearU</span>
           </h1>
           <p className="text-lg font-light tracking-wide italic">
             Easy, affordable, and convenient PG accommodations for students. Secure your stay before starting your academic journey!

@@ -71,7 +71,7 @@ function Tenant() {
           >
             <div className="flex items-center mb-4">
               <img
-                src={`${url}/images/${tenant.profile.photo}` || "/placeholder-profile.png"}
+                src={`${url}/profile/${tenant.profile.photo}` || "/placeholder-profile.png"}
                 alt={tenant.profile.name}
                 className="w-16 h-16 rounded-full mr-4"
               />
@@ -106,7 +106,7 @@ function Tenant() {
                 </span>
                 </p>
             </div>
-            <div className="flex flex-col mt-auto">
+            {/* <div className="flex flex-col mt-auto">
               <button
                 onClick={() => handleTerminate(tenant.id)}
                 className="px-4 py-2 bg-red-500 text-white rounded-full mb-2 hover:bg-red-700 transition"
@@ -125,7 +125,7 @@ function Tenant() {
               >
                 <FaEnvelope className="inline mr-2" /> Send Mail
               </button>
-            </div>
+            </div> */}
           </div>
         ))}
       </div>
