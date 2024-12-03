@@ -105,7 +105,7 @@ function MyPG() {
                 whileHover={{ scale: 1.05 }}
             >
                 <img
-                    src={recentBooking.pg.image || "default-image-url.jpg"} // Replace with fallback image
+                    src={`${url}/pg/${recentBooking.pg.photo}` || "default-image-url.jpg"} // Replace with fallback image
                     alt="PG"
                     className="w-full h-64 sm:h-80 object-cover"
                 />

@@ -63,7 +63,7 @@ function MyBookings() {
                     return (
                         <div key={booking._id} className="bg-white shadow-lg rounded-lg overflow-hidden">
                             <img
-                                src={booking.pgImage || "default-image-url.jpg"} // Replace with actual image URL or fallback
+                                src={`${url}/pg/${booking.pg.photo}` || "default-image-url.jpg"} // Replace with actual image URL or fallback
                                 alt="PG Image"
                                 className="w-full h-48 object-cover"
                             />

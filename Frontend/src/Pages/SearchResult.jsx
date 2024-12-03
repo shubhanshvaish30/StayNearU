@@ -50,7 +50,7 @@ function SearchResult(){
                 className="relative bg-cover bg-center rounded-lg shadow-lg overflow-hidden h-80"
                 style={{
                   backgroundImage:
-                    "url('https://5.imimg.com/data5/GW/PC/DZ/SELLER-31660501/paying-guest-water-facility-service-500x500.jpg')",
+                    `url(${url}/pg/${item.photo})`,
                 }}
               >
                 <div className="absolute inset-0 bg-black bg-opacity-50"></div>

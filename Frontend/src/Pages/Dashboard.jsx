@@ -39,7 +39,7 @@ function Dashboard() {
                 <div className="relative p-6 h-full flex flex-col justify-between z-10 text-white">
                   <div>
                     <h3 className="text-2xl font-semibold">{item.name}</h3>
-                    <p className="text-lg">₹{item.price}/month</p>
+                    <p className="text-lg">₹{item.rooms.rooms[2].price}/month</p>
                     <p className="text-sm">
                       {item.distance} from {item.university}
                     </p>

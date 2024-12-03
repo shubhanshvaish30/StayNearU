@@ -14,7 +14,7 @@ import "./cronJobs.js"
 const app=express();
 
 const corsOptions={
-    origin:'http://localhost:5173',
+    origin:'https://staynearu-frontend.onrender.com',
     credentials:true,
 }
 // middleware

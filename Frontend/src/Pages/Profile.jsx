@@ -5,7 +5,7 @@ import { assets } from "../assets/assets";
 import axios from "axios";
 import { url } from "../utils/constant";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Profile() {
   const [greeting, setGreeting] = useState("");
@@ -102,21 +102,21 @@ function Profile() {
       <div className="container mx-auto px-4 mt-4">
         {/* Cards Section - Responsive Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
-          <div className="bg-gradient-to-r from-blue-200 to-teal-50 p-4 md:p-6 rounded-lg shadow-lg text-center cursor-pointer border-2 border-blue-400">
+          <Link to="/myPG" className="bg-gradient-to-r from-blue-200 to-teal-50 p-4 md:p-6 rounded-lg shadow-lg text-center cursor-pointer border-2 border-blue-400">
             <FaUser className="text-2xl md:text-4xl text-blue-500 mx-auto mb-2 md:mb-4" />
             <h3 className="text-md md:text-lg font-bold">My PG</h3>
             <p className="text-xs md:text-sm text-gray-700">View your PG Dashboard.</p>
-          </div>
-          <div className="bg-white p-4 md:p-6 rounded-lg shadow-lg text-center cursor-pointer">
+          </Link>
+          <Link to="/user/bookings" className="bg-gradient-to-r from-blue-200 to-teal-50 p-4 md:p-6 rounded-lg shadow-lg text-center cursor-pointer border-2 border-blue-400">
             <FaBook className="text-2xl md:text-4xl text-blue-500 mx-auto mb-2 md:mb-4" />
             <h3 className="text-md md:text-lg font-bold">Bookings</h3>
             <p className="text-xs md:text-sm text-gray-700">View your booking history.</p>
-          </div>
-          <div className="bg-white p-4 md:p-6 rounded-lg shadow-lg text-center cursor-pointer">
+          </Link>
+          <Link to="/explore" className="bg-gradient-to-r from-blue-200 to-teal-50 p-4 md:p-6 rounded-lg shadow-lg text-center cursor-pointer border-2 border-blue-400">
             <FaMapMarkedAlt className="text-2xl md:text-4xl text-blue-500 mx-auto mb-2 md:mb-4" />
             <h3 className="text-md md:text-lg font-bold">Explore</h3>
             <p className="text-xs md:text-sm text-gray-700">Explore PGs near your locations.</p>
-          </div>
+          </Link>
         </div>
 
         {/* Profile Details Section */}
