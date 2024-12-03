@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { url } from "../utils/constant";
 import { FaStar, FaCheckCircle, FaMapMarkerAlt, FaPhone, FaEnvelope, FaUniversity, FaRoute, FaBook, FaClipboardList, FaMapPin } from "react-icons/fa";
@@ -25,6 +25,7 @@ L.Icon.Default.mergeOptions({
 
 function ViewPG() {
     const { token, user } = useSelector((store) => store.auth);
+    const { profile } = useSelector((store) => store.profile);
     const { id } = useParams();
     const [pgData, setPgData] = useState(null);
     const [reviews, setReviews] = useState([]);
@@ -39,7 +40,6 @@ function ViewPG() {
     })
     const [showAllReviews, setShowAllReviews] = useState(false);
     const mapRef=useRef();
-
     const fetchData = async () => {
         try {
             const res = await axios.get(`${url}/user/getPG/${id}`);
@@ -61,6 +61,15 @@ function ViewPG() {
         }
     };
     console.log(pgData);
+    const navigate = useNavigate();
+
+    const handleBookingClick = () => {
+        if (!profile?.aadharCard || profile.aadharCard.trim() === "") {
+            toast.error("Profile is not completed yet. Please update your profile first!");
+            return;
+        }
+        navigate(`/user/pg/${pgData._id}/booking`);
+    };
     useEffect(()=>{
         fetchData();
     },[id,ratingValue]);
@@ -155,13 +164,13 @@ function ViewPG() {
                             <FaRoute className="mr-2 text-blue-500" /> Distance: {pgData.distance} km
                         </p>
                         <div className="mt-4 flex justify-between items-center">
-                            <Link
-                                to={`/user/pg/${pgData._id}/booking`}
+                            <button
+                                onClick={handleBookingClick}
                                 className="bg-transparent border-2 border-blue-500 text-blue-600 px-6 py-2 rounded-full font-semibold hover:bg-blue-500 hover:text-white transition-colors duration-300 flex items-center"
                             >
                                 <FaClipboardList className="mr-2 text-xl" />
                                 Book PG
-                            </Link>
+                            </button>
                         </div>
                         <hr className="my-4 border-gray-300" />
                         <h2 className="text-2xl font-semibold mt-4 mb-2">Facilities</h2>

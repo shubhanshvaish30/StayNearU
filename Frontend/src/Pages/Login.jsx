@@ -78,7 +78,7 @@ function Login() {
       const res=await axios.get(`${url}/profile/get`,{
         params:{userId}
       });
-      console.log(res.data.profile);
+      console.log(res);
       if(res.data.success){
         dispatch(setProfileData({
           name: res.data.profile.name,

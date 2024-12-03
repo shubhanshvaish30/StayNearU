@@ -125,14 +125,19 @@ const Add = () => {
         formData.append('facilities',pgDetails.facilities);
         formData.append('phone',pgDetails.phone);
         formData.append('email',pgDetails.email);
+        formData.append('rooms', JSON.stringify(rooms));
         formData.append('photo',photo);
+        formData.append('userId',userId);
+        console.log(rooms);
+        
         // const data={...pgDetails,rooms,userId,photo};
         // console.log(data);
         
         const res=await axios.post(`${url}/admin/addPg`,formData, {
           headers: { "Content-Type": "multipart/form-data" },
         });
-        console.log(res);
+        // const res=await axios.post(`${url}/admin/addPg`,data);
+        // console.log(res);
         
         if(res.data.success){
           toast.success(res.data.msg);

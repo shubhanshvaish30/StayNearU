@@ -124,16 +124,19 @@ const BookingPage = () => {
                                 className="w-full p-4 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-md"
                             >
                                 <option value="">Select Room</option>
-                                {pgData.rooms.rooms && pgData.rooms.rooms.length > 0 ?(
-                                    pgData.rooms.rooms.map((room, index) => (
-                                        <option key={index} value={room._id}>
-                                            {room.type} - {room.price} INR/month
-                                        </option>
-                                    ))
+                                {pgData.rooms.rooms && pgData.rooms.rooms.length > 0 ? (
+                                    pgData.rooms.rooms
+                                        .filter((room) => room.available > 0) // Filter rooms with available > 0
+                                        .map((room, index) => (
+                                            <option key={index} value={room._id}>
+                                                {room.type} - {room.price} INR/month
+                                            </option>
+                                        ))
                                 ) : (
                                     <option value="">No rooms available</option>
                                 )}
                             </select>
+
                         </div>
 
                         <div className="mb-6">

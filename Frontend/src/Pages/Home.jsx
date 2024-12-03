@@ -8,6 +8,24 @@ import axios from "axios";
 import { url } from "../utils/constant";
 
 function Home() {
+  // const [profile, setProfile] = useState(null);
+  // const fetchData=async()=>{
+  //   try{
+  //     const res=await axios.get(`${url}/profile/get`,{
+  //       params:{userId}
+  //     });
+  //     console.log(res.data.profile);
+  //     if(res.data.success){
+  //       setProfile(res.data.profile);
+  //     }
+      
+  //   }catch(e){
+  //     console.log(e);
+  //   }
+  // }
+  // useEffect(()=>{
+  //   fetchData();
+  // },[])
   return (
     <div className="min-h-screen bg-gradient-to-r from-blue-200 to-teal-50 pt-20">
       <section className="relative flex flex-col items-center justify-center min-h-screen py-20 text-center">

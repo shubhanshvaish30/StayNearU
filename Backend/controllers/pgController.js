@@ -6,15 +6,21 @@ import ApiFeatures from "../utils/apiFeatures.js";
 const addPG=async (req,res)=>{
     try{
         const photo = req.files?.photo?.[0]?.filename;
-        const {name,university,distance,street,city,state,pincode,latitude,longitude,facilities,phone,email,rooms}=req.body;
+        
+        const {name,university,distance,street,city,state,pincode,latitude,longitude,facilities,phone,email}=req.body;
         const userId=req.body.userId;
+        const rooms = JSON.parse(req.body.rooms);
+        // console.log(rooms);
+        
         // console.log(photo);
         const address={street,city,state,pincode,latitude,longitude};
         const contact={phone,email};
         const room=new Room({rooms});
         await room.save();
         // console.log(room);
-        const pg=new PG({name,address,university,distance,rooms:[room._id],facilities,photo,contact,owner:userId});
+        const pg=new PG({name,address,university,distance,rooms:room._id,facilities,photo,contact,owner:userId});
+        // console.log(pg);
+        
         await pg.save();
         return res.json({success:true,msg:"PG Added Successfully"});
     }
@@ -26,7 +32,9 @@ const addPG=async (req,res)=>{
 
 const getAllPG=async(req,res)=>{
     try{
-        const owner=req.query.userId;        
+        const owner=req.query.userId;  
+        console.log(owner);
+              
         const pg=await PG.find({owner:owner}).populate("rooms");
         if (!pg) {
             return res.json({success: false,msg: "No PG found for this user"});

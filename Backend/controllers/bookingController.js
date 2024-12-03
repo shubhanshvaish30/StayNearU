@@ -49,12 +49,15 @@ const createBooking=async (req,res)=>{
         }
         roomType.available -= 1;
         await roomData.save();
+        const expiryDate = new Date();
+        expiryDate.setMonth(expiryDate.getMonth() + months);
         const newBooking = new Booking({
             profile,
             pg:pgId,
             roomId,
             rooms:room,
             bookingDate: Date.now(),
+            expiryDate,
             month:months,
             transactionId,
             user:userId,

@@ -9,7 +9,17 @@ import { useNavigate } from "react-router-dom";
 
 function Profile() {
   const [greeting, setGreeting] = useState("");
-  const [profile, setProfile] = useState(null);
+  const [profile, setProfile] = useState({
+    name: "",
+    email:"",
+    phone:"",
+    age: "",
+    gender: "",
+    parent: "",
+    address: "",
+    photo:"",
+    aadharCard:""
+  });
   const [showPopup, setShowPopup] = useState(false);
   const [photo,setPhoto]=useState(false)
   const [aadhar,setAadharFile]=useState(false)
@@ -128,7 +138,7 @@ function Profile() {
               </div>
           
               {/* Profile Content */}
-              {profile ? (
+              {profile.name!="" ? (
                 <div className="flex">
                   {/* Profile Image */}
                   <div className="flex-shrink-0">

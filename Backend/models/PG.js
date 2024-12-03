@@ -11,7 +11,7 @@ const pgSchema = new mongoose.Schema({
         city: { type: String, required: [true, "Please enter the city"] },
         state: { type: String, required: [true, "Please enter the state"] },
         pincode: { type: Number, required: [true, "Please enter the pincode"] },
-        latiude:{
+        latitude:{
             type:Number,
             required:[true,"Please enter the latitude"]
         },

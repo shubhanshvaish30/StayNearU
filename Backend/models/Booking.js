@@ -23,13 +23,17 @@ const bookingSchema=new mongoose.Schema({
         type:Date,
         required:true,
     },
+    expiryDate:{
+        type:Date,
+        required:true,
+    },
     month:{
         type:String,
         required:true,
     },
     status: {
         type: String,
-        enum: ["Confirm", "Pending"],
+        enum: ["Confirm", "Pending","Expired"],
         default: "Available"
     },
     transactionId:{

@@ -33,6 +33,9 @@ function App() {
   const [showLogin,setShowLogin]=useState(false)
   const {token,user}=useSelector(state=>state.auth)
   const [stripeApiKey,setStripeApiKey]=useState("")
+  const {profile}=useSelector(store=>store.profile)
+  console.log(profile);
+  
   let admin=false;
   if(user && user.userType=="pgOwner"){
     admin=true;

@@ -9,6 +9,7 @@ import profileRouter from "./routes/profileRoutes.js";
 import paymentRouter from "./routes/paymentRoutes.js";
 import bookingRouter from "./routes/bookingRoutes.js";
 // import reviewRouter from "./routes/reviewRoutes.js";
+import "./cronJobs.js"
 
 const app=express();
 
