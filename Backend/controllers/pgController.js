@@ -11,14 +11,14 @@ const addPG=async (req,res)=>{
         const userId=req.body.userId;
         const rooms = JSON.parse(req.body.rooms);
         // console.log(rooms);
-        
+        const facilitiesArray = facilities.split(',').map(facility => facility.trim());
         // console.log(photo);
         const address={street,city,state,pincode,latitude,longitude};
         const contact={phone,email};
         const room=new Room({rooms});
         await room.save();
         // console.log(room);
-        const pg=new PG({name,address,university,distance,rooms:room._id,facilities,photo,contact,owner:userId});
+        const pg=new PG({name,address,university,distance,rooms:room._id,facilities:facilitiesArray,photo,contact,owner:userId});
         // console.log(pg);
         
         await pg.save();

@@ -50,10 +50,13 @@ function MyPG() {
     }
 
     // Calculate remaining time
-    const startDate = new Date(recentBooking.createdAt);
-    const endDate = new Date(startDate.setMonth(startDate.getMonth() + recentBooking.month));
-    const timeRemaining = Math.max(0, Math.floor((endDate - new Date()) / (1000 * 60 * 60 * 24)));
-
+    const now = new Date();
+    const expiryDate = new Date(recentBooking.expiryDate);
+    const timeRemaining = Math.max(
+        0,
+        Math.ceil((expiryDate - now) / (1000 * 60 * 60 * 24)) // Convert milliseconds to days
+    );
+    const status = new Date(recentBooking.expiryDate) > now ? "Active" : "Expired"
     const onRatingChange = (newRating) => {
         setRating(newRating);
         setReview({...review,rating:newRating});
@@ -114,12 +117,12 @@ function MyPG() {
                         <h2 className="text-2xl sm:text-3xl font-bold">{recentBooking.pg.name}</h2>
                         <span
                             className={`text-sm sm:text-lg md:text-xl font-semibold px-4 sm:px-6 py-1 rounded-full border-2 tracking-wide ${
-                                timeRemaining > 0
+                                status === "Active"
                                     ? "border-green-500 bg-white text-green-500"
                                     : "border-red-500 bg-white text-red-500"
                             }`}
                         >
-                            {timeRemaining > 0 ? "Active" : "Expired"}
+                            {status}
                         </span>
                     </div>
                     <p className="text-sm sm:text-lg text-gray-600 mt-2">

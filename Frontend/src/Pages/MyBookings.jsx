@@ -8,7 +8,7 @@ function MyBookings() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const { user } = useSelector((store) => store.auth);
-    const userId = user._id;
+    const userId = user._id;   
 
     useEffect(() => {
         // Fetch booking data from the backend
@@ -29,13 +29,20 @@ function MyBookings() {
         fetchBookings();
     }, [userId]);
 
-    const calculateStatus = (createdAt, months) => {
-        const startDate = new Date(createdAt);
-        const endDate = new Date(startDate);
-        endDate.setMonth(endDate.getMonth() + months);
-
-        return new Date() > endDate ? "Expired" : "Activated";
+    const calculateStatus = (bookingDate, expiryDate) => {
+        const now = new Date();
+        const bookingStart = new Date(bookingDate);
+        const bookingEnd = new Date(expiryDate);
+    
+        if (now < bookingStart) {
+            return "Pending";
+        } else if (now >= bookingStart && now <= bookingEnd) {
+            return "Activated";
+        } else if (now > bookingEnd) {
+            return "Expired";
+        }
     };
+    
 
     if (loading) {
         return <p className="text-center mt-40 text-xl font-semibold">Loading bookings...</p>;
@@ -59,7 +66,7 @@ function MyBookings() {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
                 {bookings.map((booking) => {
-                    const status = calculateStatus(booking.createdAt, booking.month);
+                    const status = calculateStatus(booking.bookingDate, booking.expiryDate); // Use bookingDate and expiryDate
                     return (
                         <div key={booking._id} className="bg-white shadow-lg rounded-lg overflow-hidden">
                             <img
@@ -74,7 +81,9 @@ function MyBookings() {
                                         className={`text-sm font-semibold px-2 py-1 rounded ${
                                             status === "Activated"
                                                 ? "bg-green-200 text-green-800"
-                                                : "bg-red-200 text-red-800"
+                                                : status === "Expired"
+                                                ? "bg-red-200 text-red-800"
+                                                : "bg-yellow-200 text-yellow-800"
                                         }`}
                                     >
                                         {status}

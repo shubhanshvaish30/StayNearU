@@ -120,17 +120,6 @@ function ViewPG() {
                                 alt="Main PG view"
                                 className="rounded-lg w-full h-80 object-cover shadow-lg mb-4 transition-transform duration-300 hover:scale-105"
                             />
-                            <div className="grid grid-cols-3 gap-2">
-                                {/* {pgData.images.map((imgUrl, index) => (
-                                    <img
-                                        key={index}
-                                        src={imgUrl}
-                                        alt={`PG view ${index + 1}`}
-                                        className="rounded-lg w-full h-24 object-cover cursor-pointer transition-transform hover:scale-110"
-                                        onClick={() => setMainImage(imgUrl)}
-                                    />
-                                ))} */}
-                            </div>
                         </div>
                         {/* Map Section */}
                         <div className="w-full pr-4 flex flex-col">
