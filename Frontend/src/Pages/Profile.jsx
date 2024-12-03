@@ -59,8 +59,8 @@ function Profile() {
     
     try {
       const formData = new FormData();
-      formData.append("photo", photo); // Append the photo file
-      formData.append("aadhar", aadhar); // Append the Aadhaar card file
+      formData.append("photo", photo);
+      formData.append("aadhar", aadhar);
       formData.append("name", profile.name);
       formData.append("email", profile.email);
       formData.append("phone", profile.phone);
@@ -89,125 +89,124 @@ function Profile() {
   
 
   return (
-    <div className="min-h-screen  bg-gradient-to-r from-blue-200 to-teal-50 mt-10 bg-gray-50 flex flex-col">
+    <div className="min-h-screen bg-gradient-to-r from-blue-200 to-teal-50 mt-10 bg-gray-50 flex flex-col">
       {/* Greeting Section */}
-      <div className="w-full h-40  bg-gradient-to-r from-blue-200 to-teal-50 flex items-center justify-center text-blue-800 ">
+      <div className="w-full h-auto md:h-40 bg-gradient-to-r from-blue-200 to-teal-50 flex items-center justify-center text-blue-800 p-4">
         <div className="text-center">
-          <h1 className="text-3xl font-semibold">{greeting}, {user.name}!</h1>
-          <p className="text-md mt-1">Welcome to your Profile Section.</p>
+          <h1 className="text-2xl md:text-3xl font-semibold">{greeting}, {user.name}!</h1>
+          <p className="text-sm md:text-md mt-1">Welcome to your Profile Section.</p>
         </div>
       </div>
 
       {/* Profile Section */}
       <div className="container mx-auto px-4 mt-4">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {/* Cards */}
-          <div className="bg-gradient-to-r from-blue-200 to-teal-50 p-6 rounded-lg shadow-lg text-center cursor-pointer border-2 border-blue-400">
-            <FaUser className="text-4xl text-blue-500 mx-auto mb-4" />
-            <h3 className="text-lg font-bold">My PG</h3>
-            <p className="text-gray-700">View your PG Dashboard.</p>
+        {/* Cards Section - Responsive Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+          <div className="bg-gradient-to-r from-blue-200 to-teal-50 p-4 md:p-6 rounded-lg shadow-lg text-center cursor-pointer border-2 border-blue-400">
+            <FaUser className="text-2xl md:text-4xl text-blue-500 mx-auto mb-2 md:mb-4" />
+            <h3 className="text-md md:text-lg font-bold">My PG</h3>
+            <p className="text-xs md:text-sm text-gray-700">View your PG Dashboard.</p>
           </div>
-          <div className="bg-white p-6 rounded-lg shadow-lg text-center cursor-pointer">
-            <FaBook className="text-4xl text-blue-500 mx-auto mb-4" />
-            <h3 className="text-lg font-bold">Bookings</h3>
-            <p className="text-gray-700">View your booking history.</p>
+          <div className="bg-white p-4 md:p-6 rounded-lg shadow-lg text-center cursor-pointer">
+            <FaBook className="text-2xl md:text-4xl text-blue-500 mx-auto mb-2 md:mb-4" />
+            <h3 className="text-md md:text-lg font-bold">Bookings</h3>
+            <p className="text-xs md:text-sm text-gray-700">View your booking history.</p>
           </div>
-          <div className="bg-white p-6 rounded-lg shadow-lg text-center cursor-pointer">
-            <FaMapMarkedAlt className="text-4xl text-blue-500 mx-auto mb-4" />
-            <h3 className="text-lg font-bold">Explore</h3>
-            <p className="text-gray-700">Explore PGs near your locations.</p>
+          <div className="bg-white p-4 md:p-6 rounded-lg shadow-lg text-center cursor-pointer">
+            <FaMapMarkedAlt className="text-2xl md:text-4xl text-blue-500 mx-auto mb-2 md:mb-4" />
+            <h3 className="text-md md:text-lg font-bold">Explore</h3>
+            <p className="text-xs md:text-sm text-gray-700">Explore PGs near your locations.</p>
           </div>
         </div>
 
-        <div className="bg-white p-8 rounded-lg shadow-lg mt-8">
+        {/* Profile Details Section */}
+        <div className="bg-white p-4 md:p-8 rounded-lg shadow-lg mt-4 md:mt-8">
           {profile ? (
-            <div className="flex flex-col items-center justify-center bg-gray-100 py-10">
-            <div className="bg-white shadow-lg rounded-lg border border-gray-200 w-full max-w-4xl p-10">
-              {/* Header Section */}
-              <div className="flex justify-between items-center border-b pb-4 mb-6">
-                <div>
-                  <h2 className="text-2xl font-semibold text-blue-800">Profile</h2>
-                  <p className="text-gray-600 text-sm">View and update your profile details</p>
-                </div>
-                <button
-                  className="px-5 py-2 bg-blue-500 text-white text-sm rounded-lg hover:bg-blue-600"
-                  onClick={() => setShowPopup(true)}
-                >
-                  Edit Profile
-                </button>
-              </div>
-          
-              {/* Profile Content */}
-              {profile.name!="" ? (
-                <div className="flex">
-                  {/* Profile Image */}
-                  <div className="flex-shrink-0">
-                    <img
-                      src={`${url}/profile/${profile.photo}`}
-                      alt="Profile"
-                      className="w-36 h-36 rounded-full border-4 border-blue-400 object-cover shadow-md"
-                    />
+            <div className="flex flex-col items-center justify-center bg-gray-100 py-6 md:py-10">
+              <div className="bg-white shadow-lg rounded-lg border border-gray-200 w-full max-w-4xl p-4 md:p-10">
+                {/* Header Section */}
+                <div className="flex flex-col md:flex-row justify-between items-center border-b pb-4 mb-6">
+                  <div className="mb-4 md:mb-0 text-center md:text-left">
+                    <h2 className="text-xl md:text-2xl font-semibold text-blue-800">Profile</h2>
+                    <p className="text-xs md:text-sm text-gray-600">View and update your profile details</p>
                   </div>
-          
-                  {/* Profile Fields */}
-                  <div className="ml-8 flex flex-col justify-center space-y-4 w-full">
-                    {[
-                      { label: "Name", value: profile.name },
-                      { label: "Email", value: profile.email },
-                      { label: "Phone", value: profile.phone },
-                      { label: "Age", value: profile.age },
-                      { label: "Parent", value: profile.parent },
-                      { label: "Address", value: profile.address },
-                      { label: "Gender", value: profile.gender },
-                    ].map((field, index) => (
-                      <div
-                        key={index}
-                        className="flex justify-between items-center text-gray-700 text-sm border-b pb-2"
-                      >
-                        <p className="font-semibold w-1/3">{field.label}:</p>
-                        <p className="w-2/3 px-4 py-1 bg-gray-100 border border-gray-300 rounded">
-                          {field.value}
-                        </p>
-                      </div>
-                    ))}
-                    {/* Aadhar Field */}
-                    <div className="flex justify-between items-center text-gray-700 text-sm">
-                      <p className="font-semibold w-1/3">Aadhar:</p>
-                      <button
-                        className="w-2/3 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-                        onClick={() => navigate(`${url}/aadhar/${profile.aadhar}`)}
-                      >
-                        View Aadhar
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              ) : (
-                <div className="text-center">
-                  <p className="text-gray-600">No profile details found.</p>
                   <button
-                    className="mt-4 px-6 py-2 bg-gradient-to-r from-blue-500 to-teal-400 text-white text-sm rounded-lg hover:from-blue-600 hover:to-teal-500"
+                    className="px-4 py-2 md:px-5 md:py-2 bg-blue-500 text-white text-xs md:text-sm rounded-lg hover:bg-blue-600"
                     onClick={() => setShowPopup(true)}
                   >
-                    Add Profile Details
+                    Edit Profile
                   </button>
                 </div>
-              )}
+          
+                {/* Profile Content */}
+                {profile.name!="" ? (
+                  <div className="flex flex-col md:flex-row">
+                    {/* Profile Image */}
+                    <div className="flex-shrink-0 flex justify-center md:block mb-4 md:mb-0">
+                      <img
+                        src={`${url}/profile/${profile.photo}`}
+                        alt="Profile"
+                        className="w-24 h-24 md:w-36 md:h-36 rounded-full border-4 border-blue-400 object-cover shadow-md"
+                      />
+                    </div>
+          
+                    {/* Profile Fields */}
+                    <div className="md:ml-8 flex flex-col justify-center space-y-2 md:space-y-4 w-full">
+                      {[
+                        { label: "Name", value: profile.name },
+                        { label: "Email", value: profile.email },
+                        { label: "Phone", value: profile.phone },
+                        { label: "Age", value: profile.age },
+                        { label: "Parent", value: profile.parent },
+                        { label: "Address", value: profile.address },
+                        { label: "Gender", value: profile.gender },
+                      ].map((field, index) => (
+                        <div
+                          key={index}
+                          className="flex flex-col md:flex-row justify-between items-start md:items-center text-gray-700 text-xs md:text-sm border-b pb-2"
+                        >
+                          <p className="font-semibold md:w-1/3 mb-1 md:mb-0">{field.label}:</p>
+                          <p className="w-full md:w-2/3 px-2 py-1 bg-gray-100 border border-gray-300 rounded text-xs md:text-sm">
+                            {field.value}
+                          </p>
+                        </div>
+                      ))}
+                      {/* Aadhar Field */}
+                      <div className="flex flex-col md:flex-row justify-between items-start md:items-center text-gray-700 text-xs md:text-sm">
+                        <p className="font-semibold md:w-1/3 mb-2 md:mb-0">Aadhar:</p>
+                        <button
+                          className="w-full md:w-2/3 px-2 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 text-xs md:text-sm"
+                          onClick={() => navigate(`${url}/aadhar/${profile.aadhar}`)}
+                        >
+                          View Aadhar
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="text-center">
+                    <p className="text-sm md:text-base text-gray-600">No profile details found.</p>
+                    <button
+                      className="mt-4 px-4 py-2 md:px-6 md:py-2 bg-gradient-to-r from-blue-500 to-teal-400 text-white text-xs md:text-sm rounded-lg hover:from-blue-600 hover:to-teal-500"
+                      onClick={() => setShowPopup(true)}
+                    >
+                      Add Profile Details
+                    </button>
+                  </div>
+                )}
+              </div>
             </div>
-          </div>
-          
-          
           ) : (
-            <div className="flex flex-col items-center bg-white shadow-lg p-6 rounded-lg border border-gray-200 max-w-md mx-auto">
-            {/* Decorative Icon */}
-            <div className="bg-blue-100 p-4 rounded-full mb-4">
-              <svg
+            <div className="flex flex-col items-center bg-white shadow-lg p-4 md:p-6 rounded-lg border border-gray-200 max-w-md mx-auto">
+              <div className="bg-blue-100 p-3 md:p-4 rounded-full mb-2 md:mb-4">
+                <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-10 w-10 text-blue-500"
+                  className="h-8 w-8 md:h-10 md:w-10 text-blue-500"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
-                  strokeWidth={2}>
+                  strokeWidth={2}
+                >
                   <circle
                     cx="12"
                     cy="12"
@@ -226,41 +225,39 @@ function Profile() {
                     strokeLinejoin="round"
                     d="M12 16c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
                   />
-              </svg>
+                </svg>
+              </div>
+
+              <p className="mb-4 text-sm md:text-lg font-semibold text-gray-700 text-center">
+                It looks like you haven't completed your profile yet.
+              </p>
+
+              <button
+                className="px-4 py-2 md:px-8 md:py-3 bg-gradient-to-r from-blue-500 to-teal-400 text-white text-xs md:text-sm font-semibold rounded-lg shadow-md hover:from-blue-600 hover:to-teal-500 hover:shadow-lg transition-all duration-200"
+                onClick={() => setShowPopup(true)}
+              >
+                Add Profile Details
+              </button>
             </div>
-
-            {/* Message */}
-            <p className="mb-6 text-lg font-semibold text-gray-700 text-center">
-              It looks like you haven’t completed your profile yet.
-            </p>
-
-            {/* Call-to-Action Button */}
-            <button
-              className="px-8 py-3 bg-gradient-to-r from-blue-500 to-teal-400 text-white font-semibold rounded-lg shadow-md hover:from-blue-600 hover:to-teal-500 hover:shadow-lg transition-all duration-200"
-              onClick={() => setShowPopup(true)}
-            >
-              Add Profile Details
-            </button>
-          </div>
-
           )}
         </div>
       </div>
 
       {/* Popup Form */}
       {showPopup && (
-        <div className="fixed inset-0 bg-gray-900 bg-opacity-70 flex justify-center items-center z-50">
-          <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-2xl border-4 border-blue-400 overflow-auto max-h-[90vh]">
-            <h2 className="text-2xl font-bold mb-6 text-blue-800">Edit Profile</h2>
-            <form className="space-y-4" onSubmit={handleSaveProfile}>
+        <div className="fixed inset-0 bg-gray-900 bg-opacity-70 flex justify-center items-center z-50 p-4">
+          <div className="bg-white p-4 md:p-6 rounded-lg shadow-lg w-full max-w-2xl border-4 border-blue-400 overflow-auto max-h-[90vh]">
+            <h2 className="text-xl md:text-2xl font-bold mb-4 md:mb-6 text-blue-800">Edit Profile</h2>
+            <form className="space-y-3 md:space-y-4" onSubmit={handleSaveProfile}>
+              {/* Form inputs with responsive text and padding */}
               <div>
-                <label className="block font-semibold text-gray-700">Name</label>
+                <label className="block text-sm md:text-base font-semibold text-gray-700">Name</label>
                 <input
                   type="text"
                   name="name"
                   value={profile.name}
                   onChange={handleInputChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600"
+                  className="w-full px-2 py-1 md:px-3 md:py-2 text-xs md:text-base border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600"
                   required
                 />
               </div>
@@ -353,17 +350,17 @@ function Profile() {
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600"
                 />
               </div>
-              <div className="flex justify-end space-x-4">
+              <div className="flex flex-col md:flex-row justify-end space-y-2 md:space-y-0 md:space-x-4">
                 <button
                   type="button"
-                  className="px-4 py-2 bg-gray-300 rounded-md hover:bg-gray-400"
+                  className="px-3 py-2 md:px-4 md:py-2 bg-gray-300 rounded-md hover:bg-gray-400 text-xs md:text-base"
                   onClick={() => setShowPopup(false)}
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 bg-blue-400 text-white rounded-md hover:bg-blue-500"
+                  className="px-3 py-2 md:px-4 md:py-2 bg-blue-400 text-white rounded-md hover:bg-blue-500 text-xs md:text-base"
                 >
                   Save
                 </button>

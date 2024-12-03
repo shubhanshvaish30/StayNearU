@@ -1,4 +1,4 @@
-export const url="http://localhost:8080"
+export const url="https://staynearu-backend.onrender.com"
 
 export default {
     maptiler: {

@@ -126,18 +126,20 @@ function NavBar({ setShowLogin }) {
             )}
           </>
         )}
-
-        {token ? (
+        {!admin? (
           <>
             <Link to="/user/profile" onClick={toggleMobileMenu} className="hover:text-blue-600">Profile</Link>
-            <Link to="/user/bookings" onClick={toggleMobileMenu} className="hover:text-blue-600">My Bookings</Link>
+          </>
+        ) : (
+          <></>
+        )}
+        {token? (
             <button 
               onClick={() => { handleLogout(); toggleMobileMenu(); }} 
               className="text-blue-600 border-2 border-blue-600 px-4 py-1 rounded-md hover:bg-blue-600 hover:text-white transition-all duration-300"
             >
               Logout
             </button>
-          </>
         ) : (
           <Link 
             to="/login" 
