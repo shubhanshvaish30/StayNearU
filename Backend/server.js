@@ -3,6 +3,8 @@ import cors from 'cors'
 import { connectDB } from "./config/db.js";
 import userRouter from "./routes/userRoutes.js";
 import 'dotenv/config'
+import path from "path";
+import { fileURLToPath } from "url";
 import pgAdminRouter from "./routes/pgAdminRoutes.js";
 import pgUserRouter from "./routes/pgUserRoutes.js";
 import profileRouter from "./routes/profileRoutes.js";
@@ -36,7 +38,13 @@ app.use("/pg",express.static('uploads/pg'))
 app.use("/make",paymentRouter)
 app.use("/booking",bookingRouter);
 
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+app.use(express.static(path.join(__dirname, "../frontend/dist")));
 
+// Catch-all route to serve index.html
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "../frontend/dist", "index.html"));
+});
 
 app.get('/',(req,res)=>{
     res.send("Hello World!")
