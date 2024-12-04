@@ -16,7 +16,7 @@ import "./cronJobs.js"
 const app=express();
 
 const corsOptions={
-    origin:'https://staynearu-frontend.onrender.com',
+    origin:'https://stay-near-u.vercel.app',
     credentials:true,
 }
 // middleware
