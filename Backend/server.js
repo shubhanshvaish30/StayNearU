@@ -1,8 +1,8 @@
 import express from "express";
 import cors from 'cors'
+import 'dotenv/config'
 import { connectDB } from "./config/db.js";
 import userRouter from "./routes/userRoutes.js";
-import 'dotenv/config'
 import path from "path";
 import { fileURLToPath } from "url";
 import pgAdminRouter from "./routes/pgAdminRoutes.js";
@@ -12,11 +12,10 @@ import paymentRouter from "./routes/paymentRoutes.js";
 import bookingRouter from "./routes/bookingRoutes.js";
 // import reviewRouter from "./routes/reviewRoutes.js";
 import "./cronJobs.js"
-
 const app=express();
 
 const corsOptions={
-    origin:'https://staynearu-frontend.onrender.com',
+    origin:'http://localhost:5173',
     credentials:true,
 }
 // middleware
@@ -39,12 +38,11 @@ app.use("/make",paymentRouter)
 app.use("/booking",bookingRouter);
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-app.use(express.static(path.join(__dirname, "../frontend/dist")));
-
-// Catch-all route to serve index.html
-app.get("*", (req, res) => {
-  res.sendFile(path.resolve(__dirname, "../frontend/dist", "index.html"));
+app.use(express.static(path.join(__dirname, '../frontend/dist')));
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../frontend/dist/index.html'));
 });
+
 
 app.get('/',(req,res)=>{
     res.send("Hello World!")

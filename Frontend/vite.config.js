@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [react()],
   server:{
     proxy:{
-      '/auth':'https://staynearu-backend.onrender.com',
+      '/auth':'http://localhost:8080',
     },
   },
 })
