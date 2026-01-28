@@ -30,15 +30,8 @@ const profileSchema=new mongoose.Schema({
         type:String,
         required:true,
     },
-    photo: {
-        type:String,
-        trim:true,
-    },
-    aadharCard: {
-        type:String,
-        trim:true,
-        required:true,
-    },
+    photo: { type: String },
+    aadharCard: { type: String },
     user:{
         type:mongoose.Schema.Types.ObjectId,
         ref:'User'
